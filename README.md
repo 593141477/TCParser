@@ -13,6 +13,7 @@ NEEDNOTREADME
 * 输出
 * 一些空行
 * Passed
-
 这样的形式
+
+
 5. 于是我们对每一个vector，按照上面的形式找到输入输出。再写到相应的文件。（writeToFile)
