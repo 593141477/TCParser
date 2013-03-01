@@ -159,13 +159,13 @@ void writeToFile(const vstr& lines, ofstream& in, ofstream& out)
 
 int main()
 {
-    vector<vstr> tr = mergeRows(getDataTable(readLines()));
-    cout<<tr.size()<<endl;
-    for_each(tr.begin(), tr.end(), removeHTMLTagsVec);
+    vector<vstr> dtrs = mergeRows(getDataTable(readLines()));
+    cout<<dtrs.size()<<" Groups of data found"<<endl;
+    for_each(dtrs.begin(), dtrs.end(), removeHTMLTagsVec);
 
-    for(int i=0; i<tr.size(); i++){
+    for(int i=0; i<dtrs.size(); i++){
         ofstream in(filename("%d.in", i)), out(filename("%d.out", i));
-        writeToFile(tr[i], in, out);
+        writeToFile(dtrs[i], in, out);
         in.close();
         out.close();
     }
