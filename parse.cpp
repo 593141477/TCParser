@@ -9,13 +9,14 @@
 using namespace std;
 
 typedef vector<string> vstr;
+char *target_path;
 
 string DATA_START_MARKER("<!-- System Testing -->");
 string DATA_END_MARKER("<!-- End System Testing -->");
 
 void error(string v)
 {
-    cerr<<v<<endl;
+    cout<<v<<endl;
     exit(-1);
 } 
 
@@ -115,7 +116,7 @@ const char* filename(const char*fmt, int d)
 {
     char buf[1024];
     sprintf(buf, fmt, d);
-    return string(buf).c_str();
+    return (string(target_path)+"/"+buf).c_str();
 }
 
 bool whiteString(const string& s)
@@ -157,12 +158,18 @@ void writeToFile(const vstr& lines, ofstream& in, ofstream& out)
 }
 
 
-int main()
+int main(int argc, char **argv)
 {
+	if(argc < 3)
+		return 1;
+	freopen(argv[1], "r", stdin);
+	
     vector<vstr> dtrs = mergeRows(getDataTable(readLines()));
     cout<<dtrs.size()<<" Groups of data found"<<endl;
     for_each(dtrs.begin(), dtrs.end(), removeHTMLTagsVec);
 
+	target_path = argv[2];
+	
     for(int i=0; i<dtrs.size(); i++){
         ofstream in(filename("%d.in", i)), out(filename("%d.out", i));
         writeToFile(dtrs[i], in, out);
